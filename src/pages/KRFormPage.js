@@ -12,8 +12,20 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 //History from react router
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createKR } from '../actions/okrActions';
 
-const KRPage = ({ dispatch }) => {
+
+
+const KRPage = ({ 
+  dispatch,
+  keyResult,
+  name,
+  email,
+  description,
+  percentageWeight,
+  initialDate,
+  endDate,
+}) => {
   //form hook
   const { register, handleSubmit } = useForm();
   // estados fechas
@@ -28,6 +40,7 @@ const KRPage = ({ dispatch }) => {
     data.endDay = finalDate.toLocaleDateString();
     data.slider = slider;
     console.log(data);
+    dispatch(createKR(data))
   };
 
   const onClick = () => {
@@ -160,6 +173,14 @@ const KRPage = ({ dispatch }) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  keyResult: state.okr.OKR.KR.keyResult,
+  name: state.okr.OKR.KR.name,
+  email: state.okr.OKR.KR.email,
+  description: state.okr.OKR.KR.description,
+  percentageWeight: state.okr.OKR.KR.percentageWeight,
+  initialDate: state.okr.OKR.KR.initialDate,
+  endDate: state.okr.OKR.KR.finalDate,
+});
 
 export default connect(mapStateToProps)(KRPage);
